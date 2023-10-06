@@ -5,7 +5,8 @@ import {deleteUserByRut, getAllUsers, login, signUp, updateUser, getUserByRut} f
 
 import { authRequire } from '../middlewares/auth.middleware.js'
 
-router.get('/users', authRequire ,getAllUsers)
+// router.get('/users', authRequire ,getAllUsers)
+router.get('/users', getAllUsers)
 router.post('/users', signUp)
 router.post('/login', login)
 router.get('/users/:rut', getUserByRut)

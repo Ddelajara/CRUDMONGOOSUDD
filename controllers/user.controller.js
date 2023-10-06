@@ -13,9 +13,9 @@ export const getAllUsers = async (req, res) => {
 
 export const signUp = async (req, res) => {
     try {
-        const {nombre, apellido, rut, edad, correo, password} = req.body;
+        const {nombre, apellido, rut, correo, direccion, codigoPostal, password} = req.body;
         
-        if(!nombre || !apellido || !rut || !edad || !correo || !password)
+        if(!nombre || !apellido || !rut || !correo || !codigoPostal || !password || !direccion)
         {
             return res.status(400).json({message : "Debes completar toda la información"})
         }
@@ -31,8 +31,9 @@ export const signUp = async (req, res) => {
             nombre,
             apellido,
             rut,
-            edad,
             correo,
+            direccion,
+            codigoPostal,
             password: passwordEncrypt
         })
 
@@ -51,7 +52,7 @@ try {
     {
         return res.status(404).json({message: 'Correo de usuario no existe en nuestra base de datos'})
     }
-
+    
     const verifyPassword = await bcrypt.compare(password, verifyUserByCorreo.password);
     if (!verifyPassword){
         return res.status(403).json({message:'Contraseña incorrecta'});
@@ -59,7 +60,7 @@ try {
 
     const expireTime = Math.floor(new Date() / 1000) + 3600
 
-    const {_id, nombre, apellido, edad } = verifyUserByCorreo
+    const {_id, nombre, apellido, codigoPostal, direccion } = verifyUserByCorreo
     const token = jwt.sign({
         exp: expireTime,
         data: {
@@ -67,7 +68,8 @@ try {
             correo: correo,
             nombre: nombre,
             apellido: apellido,
-            edad: edad
+            codigoPostal : codigoPostal,
+            direccion: direccion
         }
     }, process.env.SECRET_KEY)
 
@@ -77,17 +79,6 @@ try {
     res.status(403).json({message: 'No pudimos verificar tu cuenta'})
 }
 }
-
-// export const createUser = async (req, res) => {
-//     try {
-//         const newUser = req.body
-//         const user = new User(newUser)
-//         const saveUser = await user.save();
-//         res.status(201).json({message: `El usuario ${saveUser.nombre} ${saveUser.apellido} ha sido creado con éxito`})
-//     }catch(error){
-//         res.status(500).json({message: 'No pudimos crear el usuario'})
-//     }
-// }
 
 export const updateUser = async(req, res) => {
 
