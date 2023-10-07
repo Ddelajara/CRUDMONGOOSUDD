@@ -40,6 +40,7 @@ export const signUp = async (req, res) => {
         const saveUser = await user.save();
         res.status(201).json({message: `El usuario ${saveUser.nombre} ${saveUser.apellido} ha sido creado con éxito`})
     }catch(error){
+        console.log(error)
         res.status(500).json({message: 'No pudimos crear el usuario'})
     }
 }

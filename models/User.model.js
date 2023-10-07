@@ -5,9 +5,9 @@ const userSchema = new Schema({
     nombre: {type: String, required: true},
     apellido: {type: String, required: true},
     rut: {type: String, required: true, unique: true},
-    correo: { type: String, required: true, unique: true},
-    direccion: { type: String, required: true, unique: true},
-    codigoPostal: { type: String, required: true, unique: true},
+    correo: { type: String, required: true},
+    direccion: { type: String, required: true},
+    codigoPostal: { type: String, required: true},
     password: { type: String, required: true}
 }, { versionKey: false})
 
