@@ -61,7 +61,7 @@ try {
 
     const expireTime = Math.floor(new Date() / 1000) + 3600
 
-    const {_id, nombre, apellido, codigoPostal, direccion } = verifyUserByCorreo
+    const {_id, nombre, apellido, rut, codigoPostal, direccion } = verifyUserByCorreo
     const token = jwt.sign({
         exp: expireTime,
         data: {
@@ -69,6 +69,7 @@ try {
             correo: correo,
             nombre: nombre,
             apellido: apellido,
+            rut: rut,
             codigoPostal : codigoPostal,
             direccion: direccion
         }
